@@ -16,7 +16,7 @@ out/
 *.a
 
 # compiled exe
-./gameengine
+gameengine
 
 # Executables
 *.exe
