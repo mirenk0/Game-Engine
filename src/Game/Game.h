@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "../ECS/ECS.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_stdinc.h>
 
@@ -17,6 +18,8 @@ private:
   int millisecsPreviousFrame;
   Uint64 last;
   Uint64 frameStart;
+
+  std::unique_ptr<Registry> registry;
 
 public:
   Game();
