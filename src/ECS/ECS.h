@@ -2,6 +2,9 @@
 #define ECS_H
 
 #include <bitset>
+#include <set>
+#include <typeindex>
+#include <unordered_map>
 #include <vector>
 
 const unsigned int MAX_COMPONENTS = 32;
@@ -118,6 +121,29 @@ private:
   // Vector of component pools, each pool contains all the data for a certain
   // compoenent type [Vector index = component type id] [Pool index = entity id]
   std::vector<IPool *> componentPools;
+
+  // Vector of component signatures per entity, saying which component is turned
+  // "on" for a given entity [Vector index = entity id]
+  std::vector<Signature> entityComponentSignatures;
+
+  // Map of active systems
+  // [Map key = system type id]
+  std::unordered_map<std::type_index, System *> systems;
+
+  // Set of entities that are flagged to be added or removed in the next
+  // registry Update()
+  std::set<Entity> entitiesToBeAdded;
+  std::set<Entity> entitiesToBeKilled;
+
+public:
+  Registry() = default;
+
+  void Update();
+
+  // Entity management
+  Entity CreateEntity();
+
+  void AddEntityToSystem(Entity entity);
 };
 
 template <typename TComponent> void System::RequireComponent() {
