@@ -56,7 +56,6 @@ gameengine
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
-Makefile
 
 # MacOS files
 .DS_Store
